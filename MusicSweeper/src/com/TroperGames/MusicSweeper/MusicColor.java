@@ -35,8 +35,7 @@ public class MusicColor {
 	boolean threadDone = false;
 	public Color[][] colorList;
 	ArrayList<visualizer> visualizers;
-	public MusicColor(int r, int c, MineField field, GameScreen game){
-		
+	public MusicColor(int r, int c, MineField field, GameScreen game){		
 		this.game = game;
 		blank = new NoVisual();
 		musicList = new ArrayList<FileHandle>();
@@ -46,16 +45,19 @@ public class MusicColor {
 		this.field = field;
 		blankColor = new Color(1f, 1f, 1f, 1f);
 		rows = r; columns = c;
+		//creating FFT
 		fft = new KissFFT(2048);
 		for (int i = 0; i < maxValues.length; i++) {
 			maxValues[i] = 0;
 			topValues[i] = 0;
 		}
+		//Locating music
 		FileHandle externalFile = Gdx.files.external("/music/");
 		music = externalFile.list();
 		for(FileHandle e : music){
 			musicList.add(e);
 		}
+		//Opening folders
 		for(int i = 0; i < musicList.size(); i++){
 			if(musicList.get(i).isDirectory()){
 				music = musicList.get(i).list();
@@ -66,6 +68,7 @@ public class MusicColor {
 				i--;
 			}
 		}
+		//removing duplicate files
 		String compare = "";
 		for(int i = 0; i < musicList.size(); i++){
 			if(musicList.get(i).extension().equals("mp3")){
@@ -78,6 +81,7 @@ public class MusicColor {
 				}
 			}
 		}
+		//removing all non MP3s
 		boolean isMusic = false;
 		index = -1;
 		while(!isMusic && musicList.size()>0){
@@ -90,8 +94,10 @@ public class MusicColor {
 				index--;
 			}
 		}
+		//Initializing music and FFT thread
 		playing = true;
 		startThread();
+		//Creating an array of colors
 		colorList = new Color[r][c];
 		for(int q = 0; q < r; q++){
 			for(int i = 0; i < c; i++){
@@ -103,6 +109,7 @@ public class MusicColor {
 		}
 	}
 	public void reset(){
+		//resets all the colors
 		for(int r = 0; r < rows; r++){
 			for(int c = 0; c<columns; c++){
 				colorList[r][c]=blankColor;
@@ -110,6 +117,7 @@ public class MusicColor {
 		}
 	}
 	public void update(float delta){
+		//updates the colors
 		totalDelta += delta;
 		if(totalDelta >=.05){
 			if(canUpdate){
@@ -120,6 +128,7 @@ public class MusicColor {
 		
 	}
 	public visualizer getVisual(){
+		//returns the current visualizer
 		if(game.game.options.visual && game.game.options.music){
 			return visualizers.get(visualIndex);
 		}
@@ -135,7 +144,7 @@ public class MusicColor {
 		return colorList[r][c];
 	}
 	public void dispose(){
-	// synchronize with the thread
+	// synchronize with the music/fft thread
 			playing = false;
 			while(!threadDone){
 				try {

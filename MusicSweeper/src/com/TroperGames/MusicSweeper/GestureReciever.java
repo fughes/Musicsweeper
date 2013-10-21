@@ -39,6 +39,7 @@ public class GestureReciever implements GestureListener{
 
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
+		//enables pinch zooming
 		float scale = distance/initialDistance;
 		game.cam.zoom = initialScale/scale;
 		game.pinched = true;

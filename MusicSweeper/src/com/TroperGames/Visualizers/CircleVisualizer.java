@@ -5,6 +5,7 @@ import com.TroperGames.MusicSweeper.MusicColor;
 import com.badlogic.gdx.graphics.Color;
 
 public class CircleVisualizer implements visualizer{
+	//THIS CLASS IS UNFINISHED
 	int rows, columns; MusicColor color; float FALLING_SPEED = (1.0f / 3.0f);
 	float largest = 0; Color red; Color blue; Color yellow;
 	int solid = 0; int blank = 0; int variant = 5;

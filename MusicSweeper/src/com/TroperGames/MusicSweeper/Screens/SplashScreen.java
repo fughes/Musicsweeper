@@ -47,6 +47,7 @@ public class SplashScreen implements Screen{
 
 	@Override
 	public void show() {
+		//fades in the splash logo
 		splashTexture = new Texture("data/MusicSweeperSplash.png");
 		splashTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		

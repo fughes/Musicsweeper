@@ -37,6 +37,7 @@ public class MineField {
 		xLL = x1; yLL = y1;
 		height = h;
 		width = w;
+		//places the mines
 		Random gen = new Random();
 		int percent = 100*numMinesLeft/(numSquaresLeft);
 		for(int i = 0; i<rows; i++){
@@ -60,6 +61,7 @@ public class MineField {
 		boxSide = height/rows;
 	}
 	public int sum(int r, int c){
+		//returns the number of surrounding mines, or 9 if the square is a mine
 		int total = 0;
 		if(field[r][c]==1||field[r][c]==3){
 			return 9;
@@ -75,6 +77,7 @@ public class MineField {
 		return total;
 	}
 	public void flag(int r, int c){
+		//flags and unflags a square
 		if(field[r][c]==0&&!selected[r][c]){
 			field[r][c]=2;
 			selected[r][c]=true;
@@ -101,12 +104,14 @@ public class MineField {
 		}
 	}
 	public boolean isValid(int r, int c){
+		//checks if a square exists
 		if(r<0||r>=rows||c<0||c>=columns){
 			return false;
 		}
 		return true;
 	}
 	public void select(int r, int c){
+		//selects a square and all surrounding squares. Crashes were common if more than 5000 squares are selected, so it also stops at that number too.
 		if(selected[r][c] || totalSelect > 5000){}
 		else if(sum(r, c)==9){
 			if(first){
@@ -138,6 +143,7 @@ public class MineField {
 			first = false;
 		}
 	}
+	//The following methods can be used to move and scale the minefield but have not been implemented
 	public void setXLL(int x){
 		xLL = x;
 	}
@@ -164,6 +170,7 @@ public class MineField {
 			boxSide = height/rows;
 		}
 	}
+	//a few getters and setters
 	public boolean getLose() {
 		return lose;
 	}
@@ -192,6 +199,7 @@ public class MineField {
 		return isActive;
 	}
 	public boolean inField(int x, int y){
+		//checks if a click is withing the minefield
 		if(x>=xLL&&x<=xLL+width&&y>=yLL&&y<=yLL+height){
 			return true;
 		}
@@ -217,6 +225,7 @@ public class MineField {
 		}
 	}
 	public int getSurroundingFlags(int r, int c){
+		//checks the number of flags in order to allow clicking on a square with the proper number of surrounding flags to open up surrounding unflagged squares
 		int total = 0;
 		for(int i = 0; i<3; i++){
 			for(int q = 0; q<3; q++){
@@ -229,10 +238,12 @@ public class MineField {
 		return total;
 	}
  	public void rClick(int x, int y){
+ 		//right click
 		if(inField(x,y)){
 			flag((y-yLL)/boxSide, columns - ((x-xLL)/boxSide) - 1);
 		}
 	}
+ 	//more getters
 	public int getboxSide() {
 		return boxSide;
 	}
@@ -249,6 +260,7 @@ public class MineField {
 		return win;
 	}
 	public void checkWin(){
+		//checks if the game has been won
 		boolean w = true;
 		for(int r = 0; r<rows; r++){
 			for(int c = 0; c<columns; c++){
@@ -278,46 +290,22 @@ public class MineField {
 						tempTexture = new Texture("data/MineArt/flag.png");
 					}
 					else{
-						if(sum == 0){
-							tempTexture = new Texture("data/MineArt/0.png");
-						}
-						else if(sum == 1){
-							tempTexture = new Texture("data/MineArt/1.png");
-						}
-						else if(sum == 2){
-							tempTexture = new Texture("data/MineArt/2.png");
-						}
-						else if(sum == 3){
-							tempTexture = new Texture("data/MineArt/3.png");
-						}
-						else if(sum == 4){
-							tempTexture = new Texture("data/MineArt/4.png");
-						}
-						else if(sum == 5){
-							tempTexture = new Texture("data/MineArt/5.png");
-						}
-						else if(sum == 6){
-							tempTexture = new Texture("data/MineArt/6.png");
-						}
-						else if(sum == 7){
-							tempTexture = new Texture("data/MineArt/7.png");
-						}
-						else if(sum == 8){
-							tempTexture = new Texture("data/MineArt/8.png");
+						if(sum == 9){
+							tempTexture = new Texture("data/MineArt/mine.png");
 						}
 						else{
-							tempTexture = new Texture("data/MineArt/mine.png");
+							tempTexture = new Texture("data/MineArt/" + sum + ".png");
 						}
 					}
 					tempTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 					temp = new Sprite(tempTexture);
-					//temp.setColor(color.getColor(r, c));
 					temp.setX(getCX(c));
 					temp.setY(getRY(r));
 					toRender[r][c]=new Sprite(temp);
 					update[r][c]=false;
 				}
 				else if (firstLose){
+					//if the game was lost, shows mines, even if they were flagged
 					if(field[r][c]==3){
 						flag(r,c);
 					}
@@ -334,5 +322,6 @@ public class MineField {
 		}
 	}
 	public void dispose(){
+		tempTexture.dispose();
 	}
 }

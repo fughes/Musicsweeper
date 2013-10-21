@@ -53,6 +53,7 @@ public class BarsVisualizer implements visualizer{
 		}
 	}
 	private float scale(float x) {
+		//scales the results from the FFT
 		if(x>largest){
 			largest = x;
 		}
@@ -60,6 +61,7 @@ public class BarsVisualizer implements visualizer{
 	}
 
 	private float avg(int pos, int nb) {
+		//average
 		int sum = 0;
 		for (int i = 0; i < nb; i++) {
 			sum += color.spectrum[pos + i];

@@ -31,6 +31,7 @@ public class InputReciever implements InputProcessor{
 	@Override
 	public boolean keyDown(int keycode) {
 		switch(keycode){
+		//WASD moves the camera
 		case Input.Keys.W:
 			translateY = 1.5f;
 			break;
@@ -51,7 +52,11 @@ public class InputReciever implements InputProcessor{
 			break;
 		case Keys.BACKSPACE:
 		case Keys.BACK:
+			//back to the menu
 			gameScreen.game.setScreen(gameScreen.game.mainMenu);
+			break;
+		case Keys.SPACE:
+			gameScreen.color.shuffle();
 			break;
 		case Keys.TAB:
 			gameScreen.color.nextVisual();
@@ -97,6 +102,7 @@ public class InputReciever implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		//If the screen isn't being moved via clicking and holding, starts a timer and records coordinates
 		if(pointer==0){
 		if(!gameScreen.field.getWin()&&!gameScreen.field.getLose()){
 			switch(button){
@@ -117,6 +123,7 @@ public class InputReciever implements InputProcessor{
 		return true;
 	}
 	public void checkHeld(){
+		//helper method to see if the input is being held down
 		float dst = checkCoordinates.dst(currentCoordinates);
 		if(dst>=19){
 			maxDist = false;
@@ -130,6 +137,7 @@ public class InputReciever implements InputProcessor{
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		//determines what to do based on if the screen was moved and how long the input was held down.
 		if(pointer==0){
 			float dst = checkCoordinates.dst(screenX, screenY, 0);
 			if(!gameScreen.field.getWin()&&!gameScreen.field.getLose()&&(!dragged||dst<19) && timePassed<.5f&&!gameScreen.pinched
@@ -158,6 +166,7 @@ public class InputReciever implements InputProcessor{
 	
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		//allows the camera to move via dragging
 		if(!gameScreen.pinched&&gameScreen.deltaPinched>.5f){
 		dragged = true;
 		gameScreen.cam.unproject(oldCoordinates);
@@ -179,6 +188,7 @@ public class InputReciever implements InputProcessor{
 
 	@Override
 	public boolean scrolled(int amount) {
+		//allows zooming via mouse wheel
 		gameScreen.cam.zoom += .2*amount;
 		return true;
 	}

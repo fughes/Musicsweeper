@@ -23,6 +23,7 @@ public class LineVisualizer implements visualizer{
 	
 	public void update(float delta) {
 		setDirection();
+		//moves the existing colors
 		if(right){
 			for(int c = columns; c > 0; c--){
 				for(int r = 0; r<rows; r++){
@@ -56,7 +57,7 @@ public class LineVisualizer implements visualizer{
 			}
 		}
 		int nb = (color.samples.length / columns) / 2;
-		
+		//adjusts the effect of the soundtrack on the visualization to ensure it is not a solid color
 		if(solid>15){
 			solid = 0;
 			variant++;
@@ -124,6 +125,7 @@ public class LineVisualizer implements visualizer{
 	}
 	
 	private void setDirection(){
+		//sets the direction, up to two nonopposite directions at once
 		if(change){
 			change = false;
 			top = true;

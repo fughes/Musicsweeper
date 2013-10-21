@@ -36,8 +36,6 @@ public class GameScreen implements Screen{
 		font = new BitmapFont();
 		font.setColor(0, 0, 0, 1);
 		available = Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
-		input = new InputReciever(this);
-		gestures = new GestureReciever(this);
 		rows = game.options.rows;
 		columns = game.options.columns;
 		this.game = game;
@@ -46,10 +44,14 @@ public class GameScreen implements Screen{
 		field = new MineField(0, 0, rows*64, columns*64, rows, columns, game.options.mines, this);
 		color = new MusicColor(rows, columns, field, this);
 		batch = new SpriteBatch();
+		//setting up camera
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, width, height);
 		cam.position.set(width, height, 0);
 		batch.setProjectionMatrix(cam.combined);
+		//setting up inputs
+		input = new InputReciever(this);
+		gestures = new GestureReciever(this);
 		InputMultiplexer multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(new GestureDetector(gestures));
 		multiplexer.addProcessor(input);
@@ -118,6 +120,7 @@ public class GameScreen implements Screen{
 	}
 	
 	public void accelerationCheck(){
+		//checks the accelerometer input
 		if(available){
 			accelX = Gdx.input.getAccelerometerX();
 			accelY = Gdx.input.getAccelerometerY();
