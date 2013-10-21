@@ -1,0 +1,38 @@
+0SECTION       TITLE subcomponent dump routine
+NULL           ===============================
+1TICHARSET     1252
+1TISIGINFO     Dump Event "gpf" (00002000) received 
+1TIDATETIME    Date:                 2013/05/29 at 00:15:09
+1TIFILENAME    Javacore filename:    C:\Users\Sam\Documents\Multiplatform\Code\MusicSweeper-desktop\javacore.20130529.001508.5416.0002.txt
+1TIREQFLAGS    Request Flags: 0x81 (exclusive+preempt)
+1TIPREPSTATE   Prep State: 0x100 (trace_disabled)
+1TIPREPINFO    Exclusive VM access not taken: data may not be consistent across javacore sections
+NULL           ------------------------------------------------------------------------
+0SECTION       GPINFO subcomponent dump routine
+NULL           ================================
+2XHOSLEVEL     OS Level         : Windows 7 6.1 build 7601 Service Pack 1
+2XHCPUS        Processors -
+3XHCPUARCH       Architecture   : amd64
+3XHNUMCPUS       How Many       : 4
+3XHNUMASUP       NUMA is either not supported or has been disabled by user
+NULL           
+1XHEXCPCODE    Windows_ExceptionCode: C0000005
+1XHEXCPCODE    J9Generic_Signal: 00000004
+1XHEXCPCODE    ExceptionAddress: 0000000077C75AA5
+1XHEXCPCODE    ContextFlags: 0010005F
+1XHEXCPCODE    Handler1: 000007FEEC772760
+1XHEXCPCODE    Handler2: 000007FEFA8313E0
+NULL           
+1XHEXCPMODULE  Module: C:\Windows\SYSTEM32\ntdll.dll
+1XHEXCPMODULE  Module_base_address: 0000000077C20000
+1XHEXCPMODULE  Offset_in_DLL: 0000000000055AA5
+NULL           
+1XHREGISTERS   Registers:
+2XHREGISTER      RDI: FFFFFFFFFFFFFFE8
+2XHREGISTER      RSI: 0000000000000007
+2XHREGISTER      RAX: 0000000000502FE0
+2XHREGISTER      RBX: 0000000000000110
+2XHREGISTER      RCX: 0000000000000000
+2XHREGISTER      RDX: 0000000000100000
+2XHREGISTER      R8: 0000000000000525
+2XHREGISTER      R9: 
